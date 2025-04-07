@@ -32,8 +32,6 @@ write(1, &c, 1), count++;
 else if (*format == 's') /* string case */
 {
 str = va_arg(args, char *);
-if (!str)
-str = "(null)";
 for (i = 0; str[i]; i++, count++) /* loop string */
 write(1, &str[i], 1);
 }
