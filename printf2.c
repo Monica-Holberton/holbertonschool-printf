@@ -2,54 +2,46 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-/**
- *_printf - Custom printf for %d and %i
- *@format: Format string
- *Return: Number of characters printed
- */
 int _printf(const char *format, ...)
 {
 va_list args;
-int count = 0, n, div;
-char d;
+int count = 0;
+char *str;
+
 if (!format)
-return (-1); /* Null check */
+return (-1);  /* Null check */
+
 va_start(args, format);
+
 while (*format)
 {
-if (*format == '%' && *(++format)) /* Check for format specifier */
+if (*format == '%' && *(++format))  /* Check for format specifier */
 {
-if (*format == 'd' || *format == 'i') /* Handle %d and %i */
+if (*format == 'd' || *format == 'i')  /* Handle %d and %i */
 {
-n = va_arg(args, int);
-if (n < 0) /* Handle negative numbers */
-{
-write(1, "-", 1);
-count++;
-n = -n;
+int n = va_arg(args, int);
+print_number(n, &count);  /* Use helper function for printing numbers */
 }
-div = 1; /* Find highest place */
-while (n / div > 9) /* Check for highest place */
-div *= 10;
-while (div) /* Print digits */
+else if (*format == 's')  /* Handle %s */
 {
-d = '0' + (n / div % 10);
-write(1, &d, 1);
-count++;
-div /= 10;
+str = va_arg(args, char *);
+if (!str)
+str = "(null)";
+while (*str)
+{
+print_char(*str, &count);  /* Use helper function for printing chars */
+str++;
 }
 }
-else /* Unknown specifier */
+else  /* Unknown specifier */
 {
-write(1, "%", 1);
-write(1, format, 1);
-count += 2;
+print_char('%', &count);
+print_char(*format, &count);
 }
 }
-else /* Print normal char */
+else  /* Print normal char */
 {
-write(1, format, 1);
-count++;
+print_char(*format, &count);
 }
 format++;
 }
