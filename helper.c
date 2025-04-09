@@ -12,7 +12,7 @@ void print_number(int n, int *count)
     int div = 1;
     char d;
 
-    if (n < 0) 
+    if (n < 0)
     {
         print_char('-', count);
         n = -n;
