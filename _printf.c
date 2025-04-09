@@ -25,8 +25,6 @@ print_number(n, &count);  /* Use helper function for printing numbers */
 else if (*format == 's')  /* Handle %s */
 {
 str = va_arg(args, char *);
-if (!str)
-str = "(null)";
 while (*str)
 {
 print_char(*str, &count);  /* Use helper function for printing chars */
