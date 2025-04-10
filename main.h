@@ -1,6 +1,6 @@
 #ifndef MAIN_H
 #define MAIN_H
-
+#define BUFFER_SIZE 1024  /* Define a buffer size for storing characters*/
 #include <stdarg.h>
 
 /*Function prototypes*/
