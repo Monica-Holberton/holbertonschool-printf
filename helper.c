@@ -9,20 +9,22 @@ void print_char(char c, int *count)
 
 void print_number(int n, int *count)
 {
-    int div = 1;
-    char d;
+	unsigned int num;
 
-    if (n < 0)
-    {
-        print_char('-', count);
-        n = -n;
-    }
-    while (n / div > 9) 
-        div *= 10;
-    while (div) 
-    {
-        d = '0' + (n / div % 10);
-        print_char(d, count);
-        div /= 10;
-    }
+	if (n < 0)
+	{
+		print_char('-', count);
+		num = -n;
+	}
+	else
+	{
+		num = n;
+	}
+
+	if (num / 10)
+	{
+		print_number(num / 10, count);
+	}
+
+	print_char((num % 10) + '0', count);
 }

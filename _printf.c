@@ -3,61 +3,70 @@
 #include <unistd.h>
 
 /**
-* _printf - Custom printf that handles %c, %s, %d, %i, and %%
+* _printf - Custom printf that handles %c, %s, %d, %i and %%
 * @format: Format string
 * Return: Number of characters printed
 */
-
 int _printf(const char *format, ...)
 {
 va_list args;
 int count = 0;
 char *str;
+char ch;
+int num;
 
 if (!format)
-return (-1);  /* Null check */
+return (-1); /* Null check */
 
 va_start(args, format);
 
 while (*format)
 {
-if (*format == '%' && *(format + 1)) /* Check for format specifier */
+if (*format == '%' && *(format + 1))
 {
-format++;
-if (*format == 'd' || *format == 'i')  /* Integer */
+format++; /* Move to specifier */
+switch (*format)
 {
-int n = va_arg(args, int);
-print_number(n, &count);
-}
-else if (*format == 's')  /* String */
-{
+case 'c':
+ch = va_arg(args, int);
+write(1, &ch, 1);
+count++;
+break;
+case 's':
 str = va_arg(args, char *);
 if (!str)
 str = "(null)";
 while (*str)
 {
-print_char(*str, &count);
-str++;
+write(1, str++, 1);
+count++;
+}
+break;
+case '%':
+write(1, "%", 1);
+count++;
+break;
+case 'd':
+case 'i':
+num = va_arg(args, int);
+print_number(num, &count);
+break;
+default:
+write(1, "%", 1);
+write(1, format, 1);
+count += 2;
+break;
 }
 }
-else if (*format == 'c')  /* Character */
+else if (*format == '%' && *(format + 1) == '\0')
 {
-char c = va_arg(args, int);
-print_char(c, &count);
-}
-else if (*format == '%')  /* Percent sign */
-{
-print_char('%', &count);
-}
-else  /* Unknown specifier */
-{
-print_char('%', &count);
-print_char(*format, &count);
-}
+/* Lone '%' at end of string */
+return (-1);
 }
 else
 {
-print_char(*format, &count);
+write(1, format, 1);
+count++;
 }
 format++;
 }
