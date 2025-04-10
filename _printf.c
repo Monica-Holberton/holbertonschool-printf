@@ -51,6 +51,10 @@ case 'i':
 num = va_arg(args, int);
 print_number(num, &count);
 break;
+case 'b':  /* Custom binary specifier */
+num = va_arg(args, unsigned int);
+print_binary(num, &count);  /* Call the print_binary function */
+break;
 default:
 write(1, "%", 1);
 write(1, format, 1);
@@ -60,7 +64,7 @@ break;
 }
 else if (*format == '%' && *(format + 1) == '\0')
 {
-/* Lone '%' at end of string */
+/* '%' at end of string */
 return (-1);
 }
 else

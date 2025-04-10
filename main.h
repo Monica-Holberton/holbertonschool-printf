@@ -13,4 +13,6 @@ void print_number(int n, int *count); /* Prints an integer (handles negatives) a
 void add_to_buffer(char c, int *count);  /*Function prototype for add_to_buffer*/
 void flush_buffer();  /*Function prototype for flush_buffer*/
 
+void print_binary(unsigned int n, int *count); /* Prints an unsigned int in binary */
+
 #endif /* MAIN_H */

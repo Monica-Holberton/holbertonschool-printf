@@ -78,3 +78,18 @@ void print_number(int n, int *count)
 
     print_char((num % 10) + '0', count);  /* Print the current digit */
 }
+/*
+* print_binary - Converts and prints an unsigned int in binary
+* @n: The number to convert
+* @count: Pointer to character count
+*/
+
+/* Function to print an unsigned integer in binary */
+void print_binary(unsigned int n, int *count)
+{
+    if (n / 2)  /* Recursively divide the number by 2 to print the binary representation */
+        print_binary(n / 2, count);
+
+    print_char((n % 2) + '0', count);  /* Print the current binary digit */
+}
+

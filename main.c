@@ -1,15 +1,13 @@
-#include <stdio.h>
 #include "main.h"
 
+/**
+ * main - Entry point
+ *_printf - 
+ * Return: Always 0
+ */
 int main(void)
 {
-    int len1, len2;
+    _printf("Binary of 98 is: %b\n", 98);       /*print: Binary of 98 is: 1100010 */
 
-    len1 = _printf("%%");
-    len2 = printf("%%");
-
-    printf("Length of _printf output: %d\n", len1);
-    printf("Length of printf output: %d\n", len2);
-
-    return 0;
+    return (0);
 }
