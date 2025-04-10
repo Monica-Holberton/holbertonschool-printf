@@ -14,5 +14,6 @@ void add_to_buffer(char c, int *count);  /*Function prototype for add_to_buffer*
 void flush_buffer();  /*Function prototype for flush_buffer*/
 
 void print_binary(unsigned int n, int *count); /* Prints an unsigned int in binary */
+void print_octal(unsigned int n, int *count); /* Prints an unsigned int in octal */
 
 #endif /* MAIN_H */

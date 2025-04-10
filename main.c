@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdio.h>
 
 /**
  * main - Entry point
@@ -7,7 +8,7 @@
  */
 int main(void)
 {
-    _printf("Binary of 98 is: %b\n", 98);       /*print: Binary of 98 is: 1100010 */
+    _printf(" %o\n", 80);       /*print: Binary of 98 is: 1100010 */
 
     return (0);
 }

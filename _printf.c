@@ -55,6 +55,12 @@ case 'b':  /* Custom binary specifier */
 num = va_arg(args, unsigned int);
 print_binary(num, &count);  /* Call the print_binary function */
 break;
+
+case 'o': /*handels the specifier 'o'*/
+num = va_arg(args, unsigned int);
+print_octal(num, &count);
+break;
+
 default:
 write(1, "%", 1);
 write(1, format, 1);
