@@ -43,8 +43,9 @@ else
 /*Function to add characters to the buffer without printing yet*/
 void add_to_buffer(char c, int *count)
 {
-    /* Similar to print_char, but without printing immediately */
-    print_char(c, count);
+    count++;
+    buffer[*count]=c;  /* Add the character to the buffer */
+   
 }
 
 /*Function to flush the buffer (write all characters to stdout)*/
@@ -60,7 +61,11 @@ void flush_buffer()
 void print_number(int n, int *count)
 {
     unsigned int num;
-
+    if(n==0){
+        printf("The input I received %d \n",n);
+        add_to_buffer('0',count);
+        
+    }
     if (n < 0)
     {
         print_char('-', count);  /* Print the minus sign */
@@ -100,5 +105,32 @@ void print_octal(unsigned int n, int *count)
         print_octal(n / 8, count);
 
     print_char((n % 8) + '0', count);
+}
+
+/* Function to print an unsigned integer (decimal) */
+void print_unsigned(unsigned int n, int *count)
+{
+    if (n / 10)
+        print_unsigned(n / 10, count);
+
+    print_char((n % 10) + '0', count);
+}
+
+/* Function to print an unsigned integer in hexadecimal (lowercase) */
+void print_hex(unsigned int n, int *count)
+{
+    if (n / 16)  /* Recursively divide the number by 16 to print the hexadecimal */
+        print_hex(n / 16, count);
+
+    print_char("0123456789abcdef"[n % 16], count);  /* Print the current hexadecimal digit */
+}
+
+/* Function to print an unsigned integer in hexadecimal (uppercase) */
+void print_upper_hex(unsigned int n, int *count)
+{
+    if (n / 16)  /* Recursively divide the number by 16 to print the hexadecimal */
+        print_upper_hex(n / 16, count);
+
+    print_char("0123456789ABCDEF"[n % 16], count);  /* Print the current hexadecimal digit */
 }
 

@@ -66,6 +66,18 @@ int _printf(const char *format, ...)
                     write(1, format, 1);
                     count += 2;
                     break;
+
+                    case 'u': /*Unsigned int*/
+                    print_unsigned(va_arg(args, unsigned int), &count);
+                    break;
+
+                    // case 'x': /*unsigned int in lowercase hexadecimal*/
+                    // print_hex_lower(va_arg(args, unsigned int), &count);
+                    // break;
+
+                    // case 'X': /*unsigned int in UPPERCASE hexadecimal*/
+                    // print_hex_upper(va_arg(args, unsigned int), &count);
+                    // break;
             }
         }
         else if (*format == '%' && *(format + 1) == '\0')
