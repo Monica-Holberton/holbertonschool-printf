@@ -87,22 +87,18 @@ void print_number(int n, int *count)
 /* Function to print an unsigned integer in binary */
 void print_binary(unsigned int n, int *count)
 {
-    if (n / 2)  /* Recursively divide the number by 2 to print the binary */
+    if (n / 2)
         print_binary(n / 2, count);
 
-    print_char((n % 2) + '0', count);  /* Print the current binary digit */
+    print_char((n % 2) + '0', count);
 }
 
+/* Function to print an unsigned integer in octal */
 void print_octal(unsigned int n, int *count)
 {
-    // printf("Testing");
-    
-    while(n>0){
-        //need to store the next line in a variable
-        (n % 8) + '0';
-        n=(n / 8);
-    }
-    
-    //need to give the print_char a variable 
-    print_char(, count);  /* Print the current binary digit */
+    if (n / 8)
+        print_octal(n / 8, count);
+
+    print_char((n % 8) + '0', count);
 }
+
