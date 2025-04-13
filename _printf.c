@@ -22,24 +22,31 @@ int _printf(const char *format, ...)
 
     while (*format)
     {
-        if (*format == '%' && *(format + 1))
+        if (*format == '%' && *(format + 1))  /* Format specifier detected */
         {
-            format++;
+            format++;  /* Move to the specifier character */
 
             /* Handle precision */
             if (*format == '.')
             {
                 format++;
-                format += get_precision(format, &precision);
+                format += get_precision(format, &precision);  /* Handle precision extraction */
 
+                /* Handle numeric types with precision */
                 if (*format == 'd' || *format == 'i')
                 {
                     num = va_arg(args, int);
                     print_number_precision(num, precision, &count);
                 }
-                /* Add handling for %.s (if needed)*/
+                /* You can add handling for other specifiers with precision here */
+                else if (*format == 's')
+                {
+                    str = va_arg(args, char *);
+                    if (!str)
+                        str = "(null)";
+                }
             }
-            else
+            else  /* Standard format specifier handling */
             {
                 switch (*format)
                 {
@@ -54,7 +61,7 @@ int _printf(const char *format, ...)
                         while (*str)
                             print_char(*str++, &count);
                         break;
-                    case '%':   /* Specifier '%' */
+                    case '%':  /* Specifier '%%' */
                         print_char('%', &count);
                         break;
                     case 'd':  /* Specifier 'd' */
@@ -62,7 +69,7 @@ int _printf(const char *format, ...)
                         num = va_arg(args, int);
                         print_number(num, &count);
                         break;
-                    case 'b':   /* Binary */
+                    case 'b':  /* Binary */
                         print_binary(va_arg(args, unsigned int), &count);
                         break;
                     case 'o':  /* Octal */
@@ -84,12 +91,11 @@ int _printf(const char *format, ...)
                 }
             }
         }
-        else if (*format == '%' && *(format + 1) == '\0')
+        else if (*format == '%' && *(format + 1) == '\0')  /* Lone '%' at the end */
         {
-            /* Lone '%' at the end */
             return (-1);
         }
-        else
+        else  /* Normal character */
         {
             print_char(*format, &count);
         }

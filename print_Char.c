@@ -1,6 +1,9 @@
 #include "main.h"
 #include <unistd.h>
 
+char buffer[BUFFER_SIZE];
+int buffer_index = 0;
+
 void print_char(char c, int *count)
 {
     if (c < 32 || c == 127)
