@@ -16,28 +16,23 @@ void print_char(char c, int *count)
 /* Check if the character is unprintable or non-ASCII */
 if (c < 32 || c == 127)
 {
-    /* Handle the unprintable character by adding escape sequence to buffer manually */
-    buffer[buffer_index++] = '\\';
-    buffer[buffer_index++] = 'x';
-    buffer[buffer_index++] = "0123456789ABCDEF"[c / 16];
-    buffer[buffer_index++] = "0123456789ABCDEF"[c % 16];
+    /* Handle the unprintable character by adding escape sequence to buffer */
+    buffer[buffer_index++] = '\\';      /* Add the backslash */
+    buffer[buffer_index++] = 'x';       /* Add the 'x' */
+    buffer[buffer_index++] = "0123456789ABCDEF"[c / 16];  /* First hex digit */
+    buffer[buffer_index++] = "0123456789ABCDEF"[c % 16];  /* Second hex digit */
 
+    /* Print the unprintable character as it is*/
     buffer[buffer_index++] = c;
-    (*count) += 1;  /* Increment count for the unprintable character (as 1) */
-}
-else
+
+    (*count) += 5;  /* Increment count for the escape sequence and character */
+
+/* If buffer is full, flush it */
+if (buffer_index >= BUFFER_SIZE - 1)
 {
-    /* Print printable character directly */
-    buffer[buffer_index++] = c;
-    (*count) += 1;  /* Increment count for printable characters */
+    write(1, buffer, buffer_index);
+    buffer_index = 0;  /* Reset buffer after flush */
 }
-
-    /* If buffer is full, flush it (write to standard output) */
-    if (buffer_index >= BUFFER_SIZE - 1)
-    {
-        write(1, buffer, buffer_index);
-        buffer_index = 0;  /* Reset buffer after flush */
-    }
 }
 
 /*Function to add characters to the buffer without printing yet*/
@@ -133,4 +128,4 @@ void print_upper_hex(unsigned int n, int *count)
 
     print_char("0123456789ABCDEF"[n % 16], count);  /* Print the current hexadecimal digit */
 }
-
+}

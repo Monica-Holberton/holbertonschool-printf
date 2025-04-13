@@ -1,6 +1,5 @@
 #include "main.h"
 #include <stdarg.h>
-#include <unistd.h>
 
 /**
  * _printf - Custom printf that handles basic specifiers with precision
@@ -27,7 +26,7 @@ int _printf(const char *format, ...)
         {
             format++;
 
-            /* Check for precision */
+            /* Handle precision */
             if (*format == '.')
             {
                 format++;
@@ -38,73 +37,67 @@ int _printf(const char *format, ...)
                     num = va_arg(args, int);
                     print_number_precision(num, precision, &count);
                 }
-                /* Add precision for %s if needed later */
+                /* Add handling for %.s (if needed)*/
             }
             else
             {
                 switch (*format)
                 {
-                    case 'c': /*Specifier '%c'*/
+                    case 'c':  /* Specifier '%c' */
                         ch = va_arg(args, int);
-                        write(1, &ch, 1);
-                        count++;
+                        print_char(ch, &count);
                         break;
-                    case 's': /*Specifier '%s'*/
+                    case 's':  /* Specifier '%s' */
                         str = va_arg(args, char *);
                         if (!str)
                             str = "(null)";
                         while (*str)
-                        {
-                            write(1, str++, 1);
-                            count++;
-                        }
+                            print_char(*str++, &count);
                         break;
-                    case '%': /*Specifier '%'*/
-                        write(1, "%", 1);
-                        count++;
+                    case '%':   /* Specifier '%' */
+                        print_char('%', &count);
                         break;
-                    case 'd': /*Specifier 'd'*/
-                    case 'i': /*Specifier 'i'*/
+                    case 'd':  /* Specifier 'd' */
+                    case 'i':  /* Specifier 'i' */
                         num = va_arg(args, int);
                         print_number(num, &count);
                         break;
-                    case 'b':  /*Binary*/
+                    case 'b':   /* Binary */
                         print_binary(va_arg(args, unsigned int), &count);
                         break;
-                    case 'o':  /*Octal*/
+                    case 'o':  /* Octal */
                         print_octal(va_arg(args, unsigned int), &count);
                         break;
-                    case 'u':  /*Unsigned int*/
+                    case 'u':  /* Unsigned int */
                         print_unsigned(va_arg(args, unsigned int), &count);
                         break;
-                    //case 'x':
-                        //print_hex(va_arg(args, unsigned int), &count);
-                        //break;
-                   // case 'X':
-                        //print_upper_hex(va_arg(args, unsigned int), &count);
-                        //break;
+                    case 'x':  /* Hexadecimal lowercase */
+                        print_hex(va_arg(args, unsigned int), &count);
+                        break;
+                    case 'X':  /* Hexadecimal UPPERCASE */
+                        print_upper_hex(va_arg(args, unsigned int), &count);
+                        break;
                     default:
-                        write(1, "%", 1);
-                        write(1, format, 1);
-                        count += 2;
+                        print_char('%', &count);
+                        print_char(*format, &count);
                         break;
                 }
             }
         }
         else if (*format == '%' && *(format + 1) == '\0')
         {
-            /* Lone '%' at end of string */
+            /* Lone '%' at the end */
             return (-1);
         }
         else
         {
-            write(1, format, 1);
-            count++;
+            print_char(*format, &count);
         }
 
         format++;
     }
 
     va_end(args);
+    flush_buffer();  /* Flush remaining characters in the buffer */
     return (count);
 }
