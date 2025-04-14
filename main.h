@@ -31,6 +31,6 @@ void print_number_precision(int n, int precision, int *count); /* print_number_p
 
 /*void print_length(va_list args, char specifier, char *length, int *count);*/
 
-void print_reverse(va_list arg, int *count); /*prints a reversed string - *count pointer to an integer to be printed*/
+void print_reverse(va_list args, int *count); /*prints a reversed string - *count pointer to an integer to be printed*/
 
 #endif /* MAIN_H */

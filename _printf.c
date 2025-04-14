@@ -46,9 +46,8 @@ int _printf(const char *format, ...)
                     while (*str)
                         print_char(*str++, &count);
                     break;
-                case 'r':  /* Reversed String */
-                    str = va_arg(args, char *); /*ABDELRAHMAN*/
-                    print_reverse(str, &count);
+                case 'r':  /* Reverse */
+                    print_reverse(args, &count);
                     break;
 
                 case '%':  /* Percent */
