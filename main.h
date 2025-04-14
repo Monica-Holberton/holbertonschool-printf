@@ -29,4 +29,6 @@ int get_precision(const char *format, int *precision);         /* get_precision 
 void print_number_precision(int n, int precision, int *count); /* print_number_precision - Prints number with precision*/
 
 
+void print_length(va_list args, char specifier, char *length, int *count); /*Length Modifier*/
+
 #endif /* MAIN_H */
