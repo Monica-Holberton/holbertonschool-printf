@@ -3,7 +3,7 @@
 #include <stdarg.h>
 
 /**
- * print reverser : prints a string in reverse
+ * Print_Reverse : prints a string in reverse
  * @args: List of Arguments 
  *
  * Return: Number of printed charachters
@@ -21,5 +21,3 @@ int print_reverse(va_list args, int *count)
     print_char(str[i], count); /* Print each character and update count */
 	return (len); /*Return count*/
 }
-
-
