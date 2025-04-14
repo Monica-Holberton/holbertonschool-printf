@@ -19,9 +19,7 @@ void print_reverse(va_list args, int *count)
 
 	for (i = len - 1; i >= 0; i--)
     {
-        print_char(str[i], count); /* Print each character and update count */
-
+        write(1, &str[i], 1); /* Print each character and update count */ /* ABDELRAHMAN */
+	(*count)++;  /*ABDELRAHMAN*/
     }
-} 
-
-
+}
