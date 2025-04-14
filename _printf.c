@@ -48,6 +48,12 @@ int _printf(const char *format, ...)
                     while (*str)
                         print_char(*str++, &count);
                     break;
+                case 'r':  /* Reversed String */
+                    str = va_arg(args, char *);
+                    if (!str)
+                        str = "(null)";
+                    print_reverse(str, &count);
+                    break;
 
                 case '%':  /* Percent */
                     print_char('%', &count);
