@@ -48,6 +48,12 @@ int _printf(const char *format, ...)
                     while (*str)
                         print_char(*str++, &count);
                     break;
+                case 'r':  /* Reversed String */
+                    str = va_arg(args, char *);
+                    if (!str)
+                        str = "(null)";
+                    print_reverse(str, &count);
+                    break;
 
                 case '%':  /* Percent */
                     print_char('%', &count);
@@ -81,7 +87,9 @@ int _printf(const char *format, ...)
                 case 'X':  /* Hex uppercase */
                     print_upper_hex(va_arg(args, unsigned int), &count);
                     break;
-
+                case 'h':
+                    print_length(va_arg(args, int), 'h', format, &count);
+                    break;
                 default:  /* Unknown specifier, print as is */
                     print_char('%', &count);
                     print_char(*format, &count);

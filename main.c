@@ -36,5 +36,19 @@ int main(void)
 	_printf("Precision (3) for \"Hello\": %.3s\n", "Hello");
 	_printf("Precision (2) for -7: %.2d\n", -7);
 
+	/* Testing %r with a Normal string */
+    len1 = _printf("Reversed: %r\n", str1);  /* Output: "olleH" */
+    printf("Length: %d\n", len1);
+
+    /* Testing %r with a Long string */
+    len2 = _printf("Reversed: %r\n", str2);  /* Expected: "loohcS notrebloH" */
+    printf("Length: %d\n", len2);
+
+    /* Testing %r with NULL */
+    _printf("Reversed NULL: %r\n", null_str); /* Expected: "(null)" reversed: "llun(" */
+
+    /* Combining with other specifiers */
+    _printf("Number: %d | Reversed: %r | Char: %c\n", 1024, "custom", 'Z');
+	
 	return (0);
 }

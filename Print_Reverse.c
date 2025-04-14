@@ -1,4 +1,6 @@
 #include "main.h"
+#include <unistd.h>
+#include <stdarg.h>
 
 /**
  * print reverser : prints a string in reverse
@@ -7,7 +9,7 @@
  * Return: Number of printed charachters
  */
 
-int print_reverse(va_list args)
+int print_reverse(va_list args, int *count)
 {
 	char *str = va_args(args, char *);
 	int len = 0, i;
@@ -16,6 +18,8 @@ int print_reverse(va_list args)
 		len++;
 
 	for (i = len - 1; i >= 0; i--)
-		write(1, &str[i], 1);
-	return (len);
+    print_char(str[i], count); /* Print each character and update count */
+	return (len); /*Return count*/
 }
+
+
