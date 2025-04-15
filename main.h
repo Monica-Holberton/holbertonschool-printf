@@ -11,8 +11,9 @@ int _printf(const char *format, ...);
 void print_char(char c, int *count);
 
 /* ========== Number Printing ========== */
-void print_number(int n, int *count);              /* print_number - Prints a signed integer*/
 void print_unsigned(unsigned int n, int *count);   /* print_unsigned - Prints an unsigned integer*/
+void print_long(long long num, int *count);        /*Prints long or long long integers for %d and %i*/
+void print_number(int n, int *count);        /* updated to handle long long */
 int print_short(short n, int *count);                /* print_short - Prints a signed short */
 /* ========== Non-Decimal Printing ========== */
 void print_binary(unsigned int n, int *count);       /* print_binary - Prints an unsigned int in Binary*/
@@ -29,7 +30,7 @@ int get_precision(const char *format, int *precision);         /* get_precision 
 void print_number_precision(int n, int precision, int *count); /* print_number_precision - Prints number with precision*/
 
 
-/*void print_length(va_list args, char specifier, char *length, int *count);*/
+void print_length(va_list args, char specifier, const char *length, int *count);
 
 void print_reverse(va_list args, int *count); /*prints a reversed string - *count pointer to an integer to be printed*/
 

@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdio.h>
 #include <stdarg.h>
 
 /**
@@ -82,10 +83,11 @@ int _printf(const char *format, ...)
                 case 'X':  /* Hex uppercase */
                     print_upper_hex(va_arg(args, unsigned int), &count);
                     break;
-                case 'h':
-                case 'l':
-                    print_length(va_arg(args, int), *format, format, &count);
-                    break;
+                    case 'h':
+                    case 'l':
+                    printf("%s", format);    
+                    print_length(args, *format, format, &count);
+                        break;
                 default:  /* Unknown specifier, print as is */
                     print_char('%', &count);
                     print_char(*format, &count);
