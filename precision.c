@@ -1,9 +1,6 @@
 #include "main.h"
 #include <unistd.h>
 
-extern char buffer[];
-extern int buffer_index;
-
 /**
  * get_precision - Parses precision value from format string
  * @format: Pointer to the precision digits (after '.')

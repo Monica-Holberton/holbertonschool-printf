@@ -1,17 +1,14 @@
 #include "main.h"
 
-void print_hex(unsigned int n, int *count)
+/* print_hex - Prints an unsigned int in hexadecimal (lowercase or uppercase) */
+void print_hex(unsigned int n, int *count, int uppercase)
 {
-    if (n / 16)
-        print_hex(n / 16, count);
+    char *hex_digits_lower = "0123456789abcdef";
+    char *hex_digits_upper = "0123456789ABCDEF";
+    char *hex_digits = uppercase ? hex_digits_upper : hex_digits_lower;
 
-    print_char("0123456789abcdef"[n % 16], count);
-}
+    if (n >= 16)
+        print_hex(n / 16, count, uppercase);
 
-void print_upper_hex(unsigned int n, int *count)
-{
-    if (n / 16)
-        print_upper_hex(n / 16, count);
-
-    print_char("0123456789ABCDEF"[n % 16], count);
+    add_to_buffer(hex_digits[n % 16], count); /* Add the hex digit to the buffer */
 }

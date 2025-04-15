@@ -1,114 +1,72 @@
 #include "main.h"
-#include <stdio.h>
 #include <stdarg.h>
+#include <unistd.h>
+#include <limits.h>
 
 /**
- * _printf - Custom printf function that handles multiple specifiers
- * @format: The format string
+ * _printf - Custom implementation of printf function
+ * @format: Format string
+ *
  * Return: Number of characters printed
  */
 int _printf(const char *format, ...)
 {
     va_list args;
     int count = 0;
-    int precision = -1; /* Precision default unset */
-    char *str;
-    char ch;
-    int num;
-
-    if (!format)
-        return (-1);
+    int i = 0;
 
     va_start(args, format);
 
-    while (*format)
+    while (format && format[i])
     {
-        if (*format == '%' && *(format + 1))
+        if (format[i] == '%')  /* Handle format specifiers */
         {
-            format++;
+            i++;
 
-            /* Handle precision if exists */
-            if (*format == '.')
+            /* Check for length modifiers and specifiers */
+            if (format[i] == 'd' || format[i] == 'i') /* Integer specifier */
+                print_number(va_arg(args, int), &count);
+            else if (format[i] == 'c') /* Character specifier */
+                print_char(va_arg(args, int), &count);
+            else if (format[i] == 's') /* String specifier */
             {
-                format++;
-                format += get_precision(format, &precision);
+                char *str = va_arg(args, char *);
+                while (*str)
+                    print_char(*str++, &count);
             }
-
-            /* Handle format specifier */
-            switch (*format)
+            else if (format[i] == '%') /* Percent sign specifier */
+                print_char('%', &count);
+            else if (format[i] == 'b') /* Binary specifier */
+                print_binary(va_arg(args, unsigned int), &count);
+            else if (format[i] == 'u') /* Unsigned specifier */
+                print_unsigned(va_arg(args, unsigned int), &count);
+            else if (format[i] == 'o') /* Octal specifier */
+                print_octal(va_arg(args, unsigned int), &count);
+            else if (format[i] == 'x') /* Lowercase hex specifier */
+                print_hex(va_arg(args, unsigned int), &count, 0); /* lowercase hex */
+            else if (format[i] == 'X') /* Uppercase hex specifier */
+                print_hex(va_arg(args, unsigned int), &count, 1); /* UPPERCASE hex */
+            else if (format[i] == 'r') /* Reversed string specifier */
+                print_reverse(args, &count);
+            else if (format[i] == 'S') /* Custom non-printable characters specifier */
+                print_string(args, &count);
+            else if (format[i] == 'p') /* Pointer address specifier */
+                print_pointer(va_arg(args, void *), &count);
+            else
             {
-                case 'c':  /* Character */
-                    ch = va_arg(args, int);
-                    print_char(ch, &count);
-                    break;
-
-                case 's':  /* String */
-                    str = va_arg(args, char *);
-                    while (*str)
-                        print_char(*str++, &count);
-                    break;
-                case 'r':  /* Reverse */
-                    print_reverse(args, &count);
-                    break;
-
-                case '%':  /* Percent */
-                    print_char('%', &count);
-                    break;
-
-                case 'd':  /* Decimal */
-                case 'i':  /* Integer */
-                    num = va_arg(args, int);
-                    if (precision >= 0)
-                        print_number_precision(num, precision, &count);
-                    else
-                        print_number(num, &count);
-                    break;
-
-                case 'b':  /* Binary */
-                    print_binary(va_arg(args, unsigned int), &count);
-                    break;
-
-                case 'u':  /* Unsigned Decimal */
-                    print_unsigned(va_arg(args, unsigned int), &count);
-                    break;
-
-                case 'o':  /* Octal */
-                    print_octal(va_arg(args, unsigned int), &count);
-                    break;
-
-                case 'x':  /* Hex lowercase */
-                    print_hex(va_arg(args, unsigned int), &count);
-                    break;
-
-                case 'X':  /* Hex uppercase */
-                    print_upper_hex(va_arg(args, unsigned int), &count);
-                    break;
-                    case 'h':
-                    case 'l':
-                    printf("%s", format);    
-                    print_length(args, *format, format, &count);
-                        break;
-                default:  /* Unknown specifier, print as is */
-                    print_char('%', &count);
-                    print_char(*format, &count);
-                    break;
+                print_char('%', &count);  /* Handle unknown specifier by printing % */
+                print_char(format[i], &count);
             }
         }
-        else if (*format == '%' && *(format + 1) == '\0')
+        else  /* Regular character */
         {
-            va_end(args);
-            return (-1); /* Lone '%' at end */
+            print_char(format[i], &count);
         }
-        else
-        {
-            print_char(*format, &count);
-        }
-
-        format++;
-        precision = -1; /* Reset precision for next specifier */
+        i++;
     }
 
-    va_end(args);
     flush_buffer();
-    return (count);
+    va_end(args);
+
+    return count;
 }

@@ -9,17 +9,20 @@
  * Return: Number of printed charachters
  */
 
-void print_reverse(va_list args, int *count)
-{
-	char *str = va_arg(args, char *);
-	int len = 0, i;
-
-	while(str[len])
-		len++;
-
-	for (i = len - 1; i >= 0; i--)
-    {
-        write(1, &str[i], 1); /* Print each character and update count */ /* ABDELRAHMAN */
-	(*count)++;  /*ABDELRAHMAN*/
-    }
-}
+ void print_reverse(va_list args, int *count)
+ {
+	 char *str = va_arg(args, char *);
+	 int len = 0, i;
+ 
+	 if (!str)
+		 return;  // Check for NULL string
+ 
+	 while (str[len])
+		 len++;  // Find length of the string
+ 
+	 for (i = len - 1; i >= 0; i--)
+	 {
+		 print_char(str[i], count);  // Print characters in reverse order
+	 }
+ }
+ 
