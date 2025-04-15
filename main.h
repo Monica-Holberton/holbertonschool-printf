@@ -13,7 +13,7 @@ void print_char(char c, int *count);
 /* ========== Number Printing ========== */
 void print_number(int n, int *count);              /* print_number - Prints a signed integer*/
 void print_unsigned(unsigned int n, int *count);   /* print_unsigned - Prints an unsigned integer*/
-
+int print_short(short n, int *count);                /* print_short - Prints a signed short */
 /* ========== Non-Decimal Printing ========== */
 void print_binary(unsigned int n, int *count);       /* print_binary - Prints an unsigned int in Binary*/
 void print_octal(unsigned int n, int *count);        /* print_octal - Prints an unsigned int in Octal*/
