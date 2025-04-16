@@ -45,7 +45,7 @@ void print_reverse(va_list args, int *count);  /* Prints a string in reverse */
 /* ========== Print Pointers ========== */
 void print_pointer(va_list args, int *count);
 
-/* ========== Print String - Non Printable ========== */
+/* ==== Print String - Non Printable ===== */
 void print_string(va_list args, int *count);
 
 /* ========== ROT 13 ========== */

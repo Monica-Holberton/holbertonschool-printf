@@ -24,6 +24,16 @@ int main(void)
     _printf("Should print a single percent sign: %%\n");
     _printf("%s%c%c%c%s%%%s%c", "Loading ", '.', '.', '.', " 99", " Please wait", '\n');
 
+    /*Pointer Print*/
+    _printf("%p\n", (void *)0x7fff5100b608);
+    _printf("%p\n", NULL);
+    _printf("Can you print an address?\n%p\nNice!\n", (void *)0x7fff5100b6f8);
+    _printf("Can you print several addresses?\n%p,%p,%p,%p\nNice!\n",
+    (void *)0x7fff5100b6f8, (void *)0x7faf51f0f608,
+    (void *)0x6ff42510b6f8, (void *)0x7fff510236f8);
+    _printf("Negative cast: %p\n", (void *)-1);
+    _printf("%pppp\n", (void *)0x7fff5100b6f8);
+
     /* Compare lengths */
     len1 = _printf("Hello %s!\n", "Monica");
     len2 = printf("Hello %s!\n", "Monica");

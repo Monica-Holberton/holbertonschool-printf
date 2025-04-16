@@ -55,8 +55,8 @@ int _printf(const char *format, ...)
                 print_reverse(args, &count);
             else if (format[i] == 'S') /* Custom non-printable characters specifier */
                 print_string(args, &count);
-            else if (format[i] == 'p') /* Pointer address specifier */
-                print_pointer(va_arg(args, void *), &count);
+            else if (format[i] == 'p')
+                print_pointer(args, &count);
             else
             {
                 print_char('%', &count);  /* Handle unknown specifier by printing % */

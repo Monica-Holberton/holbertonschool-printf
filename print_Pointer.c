@@ -1,25 +1,38 @@
 #include "main.h"
 #include <stdarg.h>
+#include <unistd.h>
+#include <stdint.h>
 
 /**
- * print_pointer - prints a memory address in hexadecimal with "0x" prefix
- * @args: va_list
- * @count: pointer to count of characters printed
+ * print_pointer - Prints a pointer address in hexadecimal format.
+ * @args: List of arguments
+ * @count: Pointer to the character count
  */
 void print_pointer(va_list args, int *count)
 {
-    void *ptr = va_arg(args, void *);
+    void *ptr = va_arg(args, void*);
     unsigned long addr = (unsigned long)ptr;
+    char hex_digits[] = "0123456789abcdef";
+    char hex[20];
+    int i = 0;
 
-    if (!ptr)
+    add_to_buffer('0', count);
+    add_to_buffer('x', count);
+
+    if (addr == 0)
     {
-        char *null_str = "(nil)";
-        while (*null_str)
-            print_char(*null_str++, count);
+        add_to_buffer('0', count);
         return;
     }
 
-    print_char('0', count);
-    print_char('x', count);
-    print_hex(addr, count, 0); /*lowercase hex*/
+    while (addr > 0)
+    {
+        hex[i++] = hex_digits[addr % 16];
+        addr /= 16;
+    }
+
+    while (i--)
+    {
+        add_to_buffer(hex[i], count);
+    }
 }
