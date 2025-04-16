@@ -4,6 +4,7 @@
 
 int main(void)
 {
+    _printf("Line 1\nLine 2\n");
     int len1, len2;
     unsigned int ui;
     void *addr;
@@ -41,7 +42,7 @@ int main(void)
     long int long_num = 1234567890;
     _printf("Long: %ld\n", long_num);
 
-    /* Triggering Segmentation fault example */
+    /* Segmentation fault */
     _printf("Segmentation fault example: %r\n", "this should cause an error");
     
     return (0);

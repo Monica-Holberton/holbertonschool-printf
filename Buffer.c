@@ -1,36 +1,30 @@
 #include "main.h"
-#include <unistd.h>
 
 char buffer[BUFFER_SIZE];
 int buffer_index = 0;
 
 /**
- * add_to_buffer - Adds a character to the buffer and manages buffer flushing
- * @c: The character to be added to the buffer
- * @count: Pointer to the count of characters printed so far
+ * add_to_buffer - Adds a character to the buffer and flushes if full
+ * @c: Character to add
+ * @count: Pointer to character count to update
  */
 void add_to_buffer(char c, int *count)
 {
-    /* Add the character to the buffer */
     buffer[buffer_index++] = c;
+    (*count)++;  /* Increment the character count */
 
-    /* If buffer is full, flush the buffer to stdout */
-    if (buffer_index >= BUFFER_SIZE)
-    {
+    if (buffer_index >= 1024 - 1)
         flush_buffer();
-    }
-
-    (*count)++; /* Increment the count of printed characters */
 }
 
 /**
- * flush_buffer - Flushes the buffer to the standard output
+ * flush_buffer - Writes buffer to stdout and resets buffer
  */
 void flush_buffer(void)
 {
     if (buffer_index > 0)
     {
         write(1, buffer, buffer_index);
-        buffer_index = 0; /* Reset the buffer index */
+        buffer_index = 0;
     }
 }
