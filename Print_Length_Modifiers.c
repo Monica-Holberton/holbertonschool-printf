@@ -30,7 +30,7 @@ void print_length(va_list args, char specifier, const char *length, int *count)
         {
             if (*(length + 1) == 'l')  /* ll - long long */
             {
-                long long num = va_arg(args, long long);
+                long num = va_arg(args, long);
                 print_long(num, count);  /* Use a function to print long long */
             }
             else  /* l - long */

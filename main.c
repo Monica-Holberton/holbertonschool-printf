@@ -10,7 +10,6 @@
 int main(void)
 {
     int len1, len2;
-    unsigned int ui;
     long int long_num = 1234567890;
 
     /* Basic string and char prints */

@@ -15,14 +15,14 @@
 	 int len = 0, i;
  
 	 if (!str)
-		 return;  // Check for NULL string
+		 return;  /*Check for NULL string*/
  
 	 while (str[len])
-		 len++;  // Find length of the string
+		 len++;  /*Find length of the string*/
  
 	 for (i = len - 1; i >= 0; i--)
 	 {
-		 print_char(str[i], count);  // Print characters in reverse order
+		 print_char(str[i], count);  /*Print characters in reverse order*/
 	 }
  }
  
