@@ -26,16 +26,21 @@ int _printf(const char *format, ...)
             /* Check for length modifiers and specifiers */
             if (format[i] == 'd' || format[i] == 'i') /* Integer specifier */
                 print_number(va_arg(args, int), &count);
-            else if (format[i] == 'c') /* Character specifier */
-                print_char(va_arg(args, int), &count);
-            else if (format[i] == 's') /* String specifier */
-            {
-                char *str = va_arg(args, char *);
-                while (*str)
-                    print_char(*str++, &count);
-            }
-            else if (format[i] == '%') /* Percent sign specifier */
-                print_char('%', &count);
+                else if (format[i] == 'c') /* Character specifier */
+                {
+                    char ch = va_arg(args, int);
+                    print_char(ch, &count);
+                }
+                else if (format[i] == 's') /* String specifier */
+                {
+                    char *str = va_arg(args, char *);
+                    while (*str)
+                        print_char(*str++, &count);
+                }
+                else if (format[i] == '%') /* Percent sign specifier */
+                {
+                    print_char('%', &count);
+                }
             else if (format[i] == 'b') /* Binary specifier */
                 print_binary(va_arg(args, unsigned int), &count);
             else if (format[i] == 'u') /* Unsigned specifier */

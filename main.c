@@ -2,14 +2,30 @@
 #include <stdio.h>
 #include <limits.h>
 
+/**
+ * main - Entry point for testing _printf
+ *
+ * Return: Always 0
+ */
 int main(void)
 {
-    _printf("Line 1\nLine 2\n");
     int len1, len2;
     unsigned int ui;
-    void *addr;
+    long int long_num = 1234567890;
 
-    /* Basic specifiers: %s, %c, %% */
+    /* Basic string and char prints */
+    _printf("Line 1\nLine 2\n");
+    _printf("Let's print a simple sentence.\n");
+    _printf("%c\n", 'S');
+    _printf("A char inside a sentence: %c. Did it work?\n", 'F');
+    _printf("Let's see if the cast is correctly done: %c. Did it work?\n", 48);
+    _printf("%s", "This sentence is retrieved from va_args!\n");
+    _printf("Complete the sentence: You %s nothing, Jon Snow.\n", "know");
+    _printf("%%\n");
+    _printf("Should print a single percent sign: %%\n");
+    _printf("%s%c%c%c%s%%%s%c", "Loading ", '.', '.', '.', " 99", " Please wait", '\n');
+
+    /* Compare lengths */
     len1 = _printf("Hello %s!\n", "Monica");
     len2 = printf("Hello %s!\n", "Monica");
     _printf("My length: %d\n", len1);
@@ -38,12 +54,11 @@ int main(void)
     _printf("Number: %d\n", 1024);
     _printf("Reversed: %r\n", "custom");
     _printf("Char: %c\n", 'Z');
-
-    long int long_num = 1234567890;
     _printf("Long: %ld\n", long_num);
 
     /* Segmentation fault */
     _printf("Segmentation fault example: %r\n", "this should cause an error");
-    
+
     return (0);
 }
+
