@@ -16,14 +16,18 @@ void print_pointer(va_list args, int *count)
     char hex[20];
     int i = 0;
 
-    add_to_buffer('0', count);
-    add_to_buffer('x', count);
-
-    if (addr == 0)
+    if (ptr == NULL)
     {
-        add_to_buffer('0', count);
+        add_to_buffer('(', count);
+        add_to_buffer('n', count);
+        add_to_buffer('i', count);
+        add_to_buffer('l', count);
+        add_to_buffer(')', count);
         return;
     }
+
+    add_to_buffer('0', count);
+    add_to_buffer('x', count);
 
     while (addr > 0)
     {
