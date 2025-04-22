@@ -13,7 +13,7 @@ extern int buffer_index;
 int _printf(const char *format, ...);
 
 /* ========== Character Printing ========== */
-int print_char(va_list args);
+void print_char(char c, int *count);
 
 /* ========== Number Printing ========== */
 void print_unsigned(unsigned int n, int *count);    /* print_unsigned - Prints an unsigned integer */

@@ -1,65 +1,11 @@
-#include <stdarg.h>
-#include <unistd.h>
+#include "main.h"
 
 /**
- * _printf - Produces output according to a format
- * @format: The format string
- *
- * Return: Number of characters printed (excluding null byte)
+ * print_char - Prints a single character
+ * @c: Character to be printed
+ * @count: Pointer to the count of printed characters
  */
-int _printf(const char *format, ...)
+void print_char(char c, int *count)
 {
-	va_list args;
-	int i = 0, count = 0;
-	char c;
-	char *str;
-
-	if (format == NULL)
-		return (-1);
-
-	va_start(args, format);
-
-	while (format[i])
-	{
-		if (format[i] == '%' && format[i + 1])
-		{
-			i++;
-			if (format[i] == 'c')
-			{
-				c = (char)va_arg(args, int);
-				write(1, &c, 1);
-				count++;
-			}
-			else if (format[i] == 's')
-			{
-				str = va_arg(args, char *);
-				if (!str)
-					str = "(null)";
-				while (*str)
-				{
-					write(1, str++, 1);
-					count++;
-				}
-			}
-			else if (format[i] == '%')
-			{
-				write(1, "%", 1);
-				count++;
-			}
-			else
-			{
-				write(1, "%", 1);
-				write(1, &format[i], 1);
-				count += 2;
-			}
-		}
-		else
-		{
-			write(1, &format[i], 1);
-			count++;
-		}
-		i++;
-	}
-	va_end(args);
-	return (count);
+    add_to_buffer(c, count); /* Add character to buffer */
 }
