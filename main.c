@@ -40,6 +40,11 @@ int main(void)
     _printf("My length: %d\n", len1);
     printf("Real length: %d\n", len2);
 
+    int len;
+
+	len = _printf("Hello %s! Char: %c %%\n", "Monica", 'M');
+	printf("Printed %d characters.\n", len);
+
     /* Binary and Octal */
     _printf("Binary of 98: %b\n", 98);
     _printf("Octal of 98: %o\n", 98);
